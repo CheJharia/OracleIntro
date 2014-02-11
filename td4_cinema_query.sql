@@ -44,11 +44,12 @@ select i.name, i.surname, f.title
 	where i.num_ind = f.num_ind 
 		  and
 		  lower(f.title) like '%pulp%';
-select name, surname 
+-- how to get title too?
+select name, surname --,title
 	from individual 
 	where num_ind =(
-		select num_ind 
-			from film 
+		select num_ind --,title 
+			from film  
 			where lower(title) like '%pulp%');
 
 
