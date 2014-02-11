@@ -78,7 +78,7 @@ insert into play values(16,07,'May Day');
 insert into cinema values(02,'Le Fontenelle','78160 Marly-le-Roi');
 insert into cinema values(01,'Le Renoir','13100 Aix-en-Provence');
 insert into cinema values(03,'Gaumont Wilson','31000 Toulouse');
-insert into cinema values(04,'Espace Ciné','93800 Epinay-sur-Seine');
+insert into cinema values(04,'Espace Cine','93800 Epinay-sur-Seine');
 
 alter session set NLS_DATE_FORMAT='DD/MM/YYYY';
 

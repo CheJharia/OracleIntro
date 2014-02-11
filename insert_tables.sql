@@ -3,7 +3,7 @@
 
 
 insert into customer values(1, 'Jean Dupont', '1 avenue du parc Cergy', 95011);
-insert into customer values(2, 'Philippe Martin', '35 Champ Elysées Paris', 75008);
+insert into customer values(2, 'Philippe Martin', '35 Champ Elysees Paris', 75008);
 insert into customer values(3, 'Dupond Pierre', '35 rue st honore fontainebleau', 7730);
 insert into customer values(4, 'Dupond François', '35 rue st honore fontainebleau', 7730);
 insert into product values(1, 'Evian 2lx6',4000, 2.99);
@@ -15,8 +15,8 @@ insert into product values(4, 'Contrex',0, 2);
 -- exercice 1
 -- 1
 insert into customer values(5, 'Jean Dupont', '1 avenue du parc Cergy', 95011);
-insert into customer values(6, 'Philippe Martin', '35 Champ Elysées Paris', 75008);
-insert into customer values(7, 'Philippe Martin', '35 Champ Elysées Paris', 75008);
+insert into customer values(6, 'Philippe Martin', '35 Champ Elysees Paris', 75008);
+insert into customer values(7, 'Philippe Martin', '35 Champ Elysees Paris', 75008);
 
 -- 2
 insert into corder values(1, to_date('30/08/2008', 'DD/MM/YYYY'), 2);
