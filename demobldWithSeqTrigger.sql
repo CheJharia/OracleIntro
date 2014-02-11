@@ -26,7 +26,8 @@ CREATE TABLE BONUS
          COMM  NUMBER);
 
 CREATE TABLE EMP
-       (EMPNO NUMBER(4) NOT NULL,
+       (EMPNO NUMBER(7) NOT NULL,
+        CONSTRAINT emp_pkey PRIMARY KEY (empno),
         ENAME VARCHAR2(10),
         JOB VARCHAR2(9),
         MGR NUMBER(4),
@@ -34,6 +35,19 @@ CREATE TABLE EMP
         SAL NUMBER(7, 2),
         COMM NUMBER(7, 2),
         DEPTNO NUMBER(2));
+
+create sequence emp_empno
+start with 1 
+increment by 1 
+nomaxvalue;
+
+create or replace trigger emp_empno_trigger
+before insert on emp
+for each row
+begin
+select emp_empno.nextval into :new.empno from dual;
+end;
+/
 
 INSERT INTO EMP VALUES
         (7369, 'SMITH',  'CLERK',     7902,
