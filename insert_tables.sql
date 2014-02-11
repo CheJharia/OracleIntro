@@ -24,9 +24,11 @@ insert into corder(id, id_customer) values(2, 5); --  by default the today's dat
 
 insert into corder_item values( 1,1 ,1 ,1 ,5 );
  
-insert into corder_item values( 2,1 ,1 ,2 ,53 );
+-- violating num_item unique constraint 
+--insert into corder_item values( 2,1 ,1 ,2 ,53 );
 
-insert into corder_item values( 3,5 ,2 ,1 ,7 );
+-- violating integrity constaint - parent key not found
+-- insert into corder_item values( 3,5 ,2 ,1 ,7 );
 
 
 update customer set zipcode = 77305 where address = '35 rue st honore fontainebleau';
