@@ -1,3 +1,17 @@
+--
+--
+--  NAME
+--    login.sql
+--
+-- DESCRIPTION
+--   This script defines the user profile configuration 
+--
+--  USAGE
+--       SQL> START <filepath>login.sql
+--       NB: if sqplus is executed in the same directory
+--		     as login.sql, this will be automatically loaded
+--
+
 set appinfo OFF
 set appinfo "SQL*Plus"
 set arraysize 15
