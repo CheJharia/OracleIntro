@@ -61,5 +61,4 @@ select * from corder where odate like '%07';
 select * from product where price in (select price from product where lower(label) like '%mangue%');
 select * from corder where to_date(odate, 'DD/MM/YYYY') like '%08';
 
-
 select * from product where price > (select avg(price) from product);
