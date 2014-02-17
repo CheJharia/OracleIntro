@@ -36,8 +36,6 @@ select name from individual
 -- note that AND takes precedence over OR
 -- so we put () to change the precedence 
 
-
-
 -- the director of pulp fiction
 select i.name, i.surname, f.title
 	from individual i, film f
@@ -51,8 +49,6 @@ select name, surname --,title
 		select num_ind --,title 
 			from film  
 			where lower(title) like '%pulp%');
-
-
 
 -- films by Lars Von Trier
 select f.title
@@ -71,25 +67,18 @@ select title
 			where lower(name) = 'von trier' and 
 		  		  lower(surname) = 'lars');
 
-
-
-
 -- films screened in 2002
-select distinct f.title
+select distinct f.title, p.pdate
 	from film f, projection p
-	where f.num_film = p.num_film
-	      and
-	      to_date(p.pdate,'DD/MM/YYYY') like '%2002';
+	where f.num_film = p.num_film;
+	  and to_date(p.pdate,'DD/MM/YYYY') like '%02';
 
 select title
 	from film
 	where num_film in (
 		select distinct num_film 
 		from projection 
-		where to_date(pdate,'DD/MM/YYYY') like '%2002');
-
-
-
+		where to_date(pdate,'DD/MM/YYYY') like '%02');
 
 -- never played in dramatic film
 
@@ -105,15 +94,21 @@ select name, surname from individual
 				  and
 				  lower(f.kind) = 'drame');
 
-
-
-
 -- at least in one non-dramatic film
 -- in other words, other film except drama
+select i.name, i.surname 
+	from film f, play p, individual i
+	where p.num_film = f.num_film 
+	  and i.num_ind = p.num_ind
+	  and lower(f.kind) != 'drame';
 
-
-
-
+select name, surname from individual
+	where num_ind in (
+			select p.num_ind
+			from film f, play p
+			where p.num_film = f.num_film 
+				  and
+				  lower(f.kind) != 'drame');
 
 -- films in which nicole kidman played a role
 -- and were screened at Fontenelle
@@ -122,18 +117,17 @@ select distinct f.title
 	from individual i,
 		 play p,
 		 projection pr,
-		 film f
+		 film f,
+		 cinema c
     where i.num_ind = p.num_ind
           and
-          i.num_ind = (select num_ind from individual where lower(name) = 'kidman')
+          lower(i.surname) like 'nicole'
           and
           p.num_film = pr.num_film 
           and
-          pr.num_cine = (select num_cine from cinema where lower(name) = 'le fontenelle')
+          lower(c.name) = 'le fontenelle'
           and
           p.num_film = f.num_film;
-
-
 
 -- how many movies played by nicole kidman
 select count(p.num_film) as kidman_num_of_film
@@ -141,7 +135,6 @@ select count(p.num_film) as kidman_num_of_film
 	where i.num_ind = p.num_ind 
 		  and 
 		  lower(i.name) = 'kidman';
-
 
 -- first screening of pulp fiction
 select f.title, min(pr.pdate) as first_screening
@@ -152,7 +145,17 @@ select f.title, min(pr.pdate) as first_screening
     	  lower(f.title) like '%pulp%'
     group by f.title;
 
--- invent 5 queries
+-- cinemas projecting Dogville
+ select num_cine
+ from film f, projection p
+ where f.num_film = p.num_film
+ and lower(title) like 'dogville';
 
+ select dr.lastname, dr.firstname
+ 	from wine w, drinker dr, drank dk
+ 	where w.nw = dk.nw 
+ 	   and dr.nd = dk.nd 
+ 	   and lower(w.vintage) = 'chablis'
+ 	   and lower(dr.address) like '%paris%';
 
 
