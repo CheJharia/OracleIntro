@@ -49,18 +49,83 @@ select f.title, min(pr.pdate) as first_screening
 select i.name, i.surname, count(p.num_ind) as numberOfFilms
 	from play p, individual i
 	where p.num_ind = i.num_ind
-	group by i.name, i.surname;
+	group by i.num_ind, i.name, i.surname;
 
 -- actors with more than 1 movie
 select i.name, i.surname, count(p.num_ind) as numberOfFilms
 	from play p, individual i
 	where p.num_ind = i.num_ind
-	group by i.name, i.surname
+	group by i.num_ind, i.name, i.surname
 	having count(p.num_ind) > 1; -- having clause should be after "group by"
 								 -- because it is applied to "group by"
+
+select i.name, i.surname, count(p.num_ind) as numberOfFilms
+	from play p, individual i
+	where p.num_ind = i.num_ind
+	group by i.num_ind, i.name, i.surname
+	having count(p.num_ind) > 1;
 
 -- film name and oldest projection
 select f.title, min(p.pdate)
 	from film f, projection p
 	where f.num_film = p.num_film
-	group by f.title; 
+	group by f.num_film, f.title; -- remember to add the primary key inside group by 
+
+-- count the number of each kind of film
+-- how many drama? how many
+select kind, count(*)
+	from film
+	group by kind;
+
+-- average number of films per actor
+
+select avg(count(p.num_film)) AvgNumberOfFilms
+	from play p, individual i
+	where p.num_ind = i.num_ind
+	group by i.name, i.surname;
+
+select numberOfFilms/numberOfActors as AvgNumberOfFilms
+	from (select sum(count(num_film)) as numberOfFilms
+		  from play 
+		  group by num_ind),
+		 (select count( distinct num_ind ) numberOfActors 
+		  from play);
+
+
+select count( distinct num_film) from play;
+select count( distinct num_ind) from play;
+
+-- each cinema whose date is prior to '2000-01-01'
+
+select num_cine, count(num_film)
+	from projection
+	where to_date(pdate,'DD/MM/YYYY') < '01-JAN-01'
+	group by num_cine;
+
+select num_cine, count(*)
+	from projection
+	where to_date(pdate,'DD/MM/YYYY') < '01-JAN-01'
+	group by num_cine;
+
+-- cinemas with projections greater than or equal to 4
+select num_cine, count(num_film)
+	from projection
+	group by num_cine
+	having count(num_film) >= 4;
+
+select num_cine, count(*)
+	from projection
+	group by num_cine
+	having count(*) >= 4;
+
+
+
+
+
+
+
+
+
+
+
+
